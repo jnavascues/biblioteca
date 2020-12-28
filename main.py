@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 
 from bd import *
 
+#con comentario
 def refrescarlista():
     for i in my_tree.get_children(): 
         my_tree.delete(i) 
