@@ -1,9 +1,6 @@
 import sqlite3
-import re
-from validador import validacion
 
-
-class abmc:
+class Abmc:
     """
     Clase encargada del Manejo de ABMC con SQLITE3
     """
@@ -76,11 +73,3 @@ class abmc:
         self.conexion.commit()
         self.conexion.close()
 
-"""
-    def validartitulo(
-            titulo):
-        patron = re.compile("^[A-Za-z]+(?:[ _-][A-Za-z]+)*$")
-        validacion = re.match(patron, titulo)
-        return validacion
-
-"""

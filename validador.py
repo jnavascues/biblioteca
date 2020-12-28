@@ -1,7 +1,7 @@
 import re
 
 
-class validacion:
+class Validacion:
     """
     Clase para validaciones de los campos de entrada
     """
@@ -22,7 +22,7 @@ class validacion:
     def validar_autor(self, autor):
         """
         Metodo de validacion de Autor
-        Solo se permites letras.
+        Solo se permites letras y espacios.
         """
         patron = re.compile("^[A-Za-z]+(?:[ ][A-Za-z]+)*$")
         validacion = re.match(patron, autor)
@@ -40,10 +40,8 @@ class validacion:
 
 
 if __name__ == '__main__':
-    validador = validacion()
+    validador = Validacion()
     if validador.validar_titulo('pasajero'):
         print("bien hecho") 
     else:
-        print("Error","Se debe iniciar y terminar con letra o palabra. \
-              \n Las letras o palabras se pueden separar por un espacio, \
-              un - o un _.  ") 
+        print("Error","No se pudo validar el campo.") 

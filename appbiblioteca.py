@@ -2,8 +2,8 @@ from tkinter import Label, Button, Entry, Tk, Grid, Pack, mainloop, W, S, E, N
 import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
 
-from base import abmc
-from validador import validacion
+from base import Abmc
+from validador import Validacion
 
 
 class AppBiblioteca():
@@ -13,10 +13,10 @@ class AppBiblioteca():
 
     def __init__(self,):
         # Iniciando Base de datos
-        self.base_de_datos = abmc()
-        self.base_de_datos.creardb
+        self.base_de_datos = Abmc()
+        self.base_de_datos.creardb()
         # Iniciando validador
-        self.obj_validar = validacion()
+        self.obj_validar = Validacion()
         # Iniciando Tkinter y graficando
         self.root = Tk()
         self.root.title('Biblioteca')
@@ -62,10 +62,10 @@ class AppBiblioteca():
         """
         if not self.obj_validar.validar_titulo(self.ctitulo.get()):
             showerror("Error Titulo", "Error en la validacion. \
-                    \nEn el campo titulo estan permitidos letras, numeros, espacios, dos puntos y guiones medios y bajos.\
+                    \nEn el campo titulo estan permitidos letras, numeros, \
+                    espacios, dos puntos y guiones medios y bajos.\
                     \nNo se permiten otros caracteres especiales. ")
             return "Titulo no valido"
-
         if not self.obj_validar.validar_autor(self.cautor.get()):
             showerror("Error Autor", "Error en la validacion. \
                     \nEn el campo Autor se permiten letras y espacios. \
