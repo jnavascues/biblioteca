@@ -14,7 +14,6 @@ class AppBiblioteca():
     def __init__(self,):
         # Iniciando Base de datos
         self.base_de_datos = Abmc()
-        self.base_de_datos.creardb()
         # Iniciando validador
         self.obj_validar = Validacion()
         # Iniciando Tkinter y graficando
@@ -48,6 +47,11 @@ class AppBiblioteca():
         for i in self.my_tree.get_children():
             self.my_tree.delete(i)
         biblioteca = self.base_de_datos.cargarlista()
+        if biblioteca == 'ERROR':
+            showerror("Error en listado", "Error. \
+                    \nSe registro un error al cargar los libros \
+                    \nPor favor verificar logs de consola.")
+            return
         for libro in biblioteca:
             self.my_tree.insert(
                 parent='',
@@ -77,8 +81,12 @@ class AppBiblioteca():
                     \nEn el campo Genero se permiten letras y espacios. \
                     \nNo se permiten caracteres especiales.")
             return "genero no valido"
-        self.base_de_datos.alta(
+        resultado = self.base_de_datos.alta(
             self.ctitulo.get(), self.cautor.get(), self.cgenero.get())
+        if resultado == 'ERROR':
+            showerror("Error en Alta", "Error. \
+                    \nSe registro un error al dar el alta. \
+                    \nPor favor verificar logs de consola.")
         self.refrescar_lista()
         self.limpiar()
 
@@ -104,7 +112,11 @@ class AppBiblioteca():
         Metodo del boton tkinter para Bajas
         """
         item = self.my_tree.focus()
-        self.base_de_datos.baja(item)
+        resultado = self.base_de_datos.baja(item)
+        if resultado == 'ERROR':
+            showerror("Error en Baja", "Error. \
+                    \nSe registro un error al dar la baja del libro \
+                    \nPor favor verificar logs de consola.")
         self.refrescar_lista()
         self.limpiar()
 
@@ -129,8 +141,12 @@ class AppBiblioteca():
             return "genero no valido"
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
-        self.base_de_datos.modificar(
+        resultado = self.base_de_datos.modificar(
             datos['values'][0], self.ctitulo.get(), self.cautor.get(), self.cgenero.get())
+        if resultado == 'ERROR':
+            showerror("Error al Modificar", "Error. \
+                    \nSe registro un error al modificar el libro \
+                    \nPor favor verificar logs de consola.")
         self.refrescar_lista()
         self.limpiar()
 
@@ -146,7 +162,6 @@ class AppBiblioteca():
         ancho: tamaño en pixeles del campo entry.
         fila: ubicación del campo en la grilla.
         columna: ubicación del campo en la grilla.
-
         """
         self.objentry = Entry(
             self.root,
@@ -170,7 +185,6 @@ class AppBiblioteca():
         valor: Texto para el label.
         fila: ubicación del label en la grilla.
         columna: ubicación del label en la grilla.
-
         """
         Label(self.root, text=valor).grid(
             row=fila,
@@ -192,7 +206,6 @@ class AppBiblioteca():
         column: ubicación del botón en la grilla.
         text: Texto por defecto del boton.
         comando: Función ligada al botón
-
         """
         self.objbutton = Button(
             self.root,
