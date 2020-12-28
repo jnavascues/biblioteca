@@ -2,12 +2,12 @@ from tkinter import Label,Button,Entry,Tk,Grid,Pack,mainloop,W,S,E,N
 import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
 
-from bd import baja,alta,modificar,creardb,cargarlista,validartitulo
-
+from base import abmc
 
 class AppBiblioteca():
     def __init__(self,):
-        creardb()
+        self.base_de_datos = abmc()
+        self.base_de_datos.creardb
         self.root = Tk()
         self.root.title('Biblioteca')
         self.root.geometry("776x300")
@@ -34,7 +34,7 @@ class AppBiblioteca():
     def refrescar_lista(self,):
         for i in self.my_tree.get_children(): 
             self.my_tree.delete(i) 
-        biblioteca = cargarlista()  
+        biblioteca = self.base_de_datos.cargarlista()  
         for libro in biblioteca:
             self.my_tree.insert(
                 parent='', 
@@ -45,8 +45,9 @@ class AppBiblioteca():
 
 
     def dar_alta(self,):
-        if validartitulo(self.ctitulo.get()):   
-            alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
+       # if validartitulo(self.ctitulo.get()):   
+        if 1 == 1:
+            self.base_de_datos.alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
             self.refrescar_lista()
             self.limpiar()
         else:
@@ -69,7 +70,7 @@ class AppBiblioteca():
 
     def dar_baja(self,):
         item = self.my_tree.focus()
-        baja(item)
+        self.base_de_datos.baja(item)
         self.refrescar_lista()
         self.limpiar()
 
@@ -77,7 +78,7 @@ class AppBiblioteca():
     def dar_modificar(self,):
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
-        modificar(datos['values'][0],self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
+        self.base_de_datos.modificar(datos['values'][0],self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
         self.refrescar_lista()
         self.limpiar()
     
