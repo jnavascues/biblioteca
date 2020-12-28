@@ -9,7 +9,7 @@ class abmc:
     """
     def __init__(self, 
             ):
-       self.obj_validar = validacion()
+        pass
 
     def creardb(self, 
             ):
@@ -37,14 +37,7 @@ class abmc:
         """
         Metodo para Altas de nuevos libros con validaciones
         """
-        self.conexion = sqlite3.connect("biblioteca.db")
-        print(titulo)
-        if not self.obj_validar.validar_titulo(titulo):
-           return "Titulo no valido"          
-        if not self.obj_validar.validar_autor(autor):
-            return "Autor no valido"  
-        if not self.obj_validar.validar_genero(genero):
-            return "genero no valido"            
+        self.conexion = sqlite3.connect("biblioteca.db")       
         self.conexion.execute("insert into libros(titulo,autor,genero) \
                         values (?,?,?)", [titulo, autor, genero])
         self.conexion.commit()

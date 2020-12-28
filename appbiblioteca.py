@@ -3,6 +3,7 @@ import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
 
 from base import abmc
+from validador import validacion
 
 class AppBiblioteca():
     """
@@ -11,6 +12,7 @@ class AppBiblioteca():
     def __init__(self,):
         self.base_de_datos = abmc()
         self.base_de_datos.creardb
+        self.obj_validar = validacion()
         self.root = Tk()
         self.root.title('Biblioteca')
         self.root.geometry("776x300")
@@ -54,15 +56,24 @@ class AppBiblioteca():
         """
         Metodo para el boton de alta de tkinter
         """
-       # if validartitulo(self.ctitulo.get()):   
-        if 1 == 1:
-            self.base_de_datos.alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
-            self.refrescar_lista()
-            self.limpiar()
-        else:
-            showerror("Error","Se debe iniciar y terminar con letra o palabra. \
+        if not self.obj_validar.validar_titulo(self.ctitulo.get()):
+            showerror("Error Titulo","Se debe iniciar y terminar con letra o palabra. \
                     \nLas letras o palabras se pueden separar por un espacio, \
                     un - o un _.  ") 
+            return "Titulo no valido"          
+        if not self.obj_validar.validar_autor(self.cautor.get()):
+            showerror("Error Autor","Se debe iniciar y terminar con letra o palabra. \
+                    \nLas letras o palabras se pueden separar por un espacio, \
+                    un - o un _.  ") 
+            return "Autor no valido"  
+        if not self.obj_validar.validar_genero(self.cgenero.get()):
+            showerror("Error Genero","Se debe iniciar y terminar con letra o palabra. \
+                    \nLas letras o palabras se pueden separar por un espacio, \
+                    un - o un _.  ") 
+            return "genero no valido"     
+        self.base_de_datos.alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
+        self.refrescar_lista()
+        self.limpiar()
 
 
     def limpiar(self,):
@@ -94,6 +105,21 @@ class AppBiblioteca():
         """
         Metodo del boton tkinter para Modificar libros
         """
+        if not self.obj_validar.validar_titulo(self.ctitulo.get()):
+            showerror("Error Titulo","Se debe iniciar y terminar con letra o palabra. \
+                    \nLas letras o palabras se pueden separar por un espacio, \
+                    un - o un _.  ") 
+            return "Titulo no valido"          
+        if not self.obj_validar.validar_autor(self.cautor.get()):
+            showerror("Error Autor","Se debe iniciar y terminar con letra o palabra. \
+                    \nLas letras o palabras se pueden separar por un espacio, \
+                    un - o un _.  ") 
+            return "Autor no valido"  
+        if not self.obj_validar.validar_genero(self.cgenero.get()):
+            showerror("Error Genero","Se debe iniciar y terminar con letra o palabra. \
+                    \nLas letras o palabras se pueden separar por un espacio, \
+                    un - o un _.  ") 
+            return "genero no valido"  
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
         self.base_de_datos.modificar(datos['values'][0],self.ctitulo.get(),self.cautor.get(),self.cgenero.get())

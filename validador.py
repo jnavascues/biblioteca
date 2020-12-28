@@ -27,7 +27,7 @@ class validacion:
 
     def validar_genero(self, genero):
         """
-        Metodo de validacion de genero
+        Metodo de validacion de genero  
         """
         patron = re.compile("^[A-Za-z]+(?:[ _-][A-Za-z]+)*$")
         validacion = re.match(patron, genero)
