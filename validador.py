@@ -5,9 +5,9 @@ class Validacion:
     """
     Clase para validaciones de los campos de entrada
     """
+
     def __init__(self, ):
         pass
-    
 
     def validar_titulo(self, titulo):
         """
@@ -38,10 +38,9 @@ class Validacion:
         return validacion
 
 
-
 if __name__ == '__main__':
     validador = Validacion()
     if validador.validar_titulo('pasajero'):
-        print("bien hecho") 
+        print("bien hecho")
     else:
-        print("Error","No se pudo validar el campo.") 
+        print("Error", "No se pudo validar el campo.")

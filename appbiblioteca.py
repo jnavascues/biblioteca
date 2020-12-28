@@ -34,8 +34,8 @@ class AppBiblioteca():
         self.cgenero = self.agregar_input('', 30, 6, 0)
         self.balta = self.agregar_boton(8, 0, 'Alta', self.dar_alta)
         self.bbaja = self.agregar_boton(8, 1, 'Baja', self.dar_baja)
-        self.bmodificar = self.agregar_boton(9, 0, 
-                'Modificar', self.dar_modificar)
+        self.bmodificar = self.agregar_boton(9, 0,
+                                             'Modificar', self.dar_modificar)
         self.blimpiar = self.agregar_boton(9, 1, 'Limpiar', self.limpiar)
         self.agregar_treeview(self.root)
         mainloop()
@@ -97,7 +97,7 @@ class AppBiblioteca():
         self.ctitulo.delete(
             0,
             'end'
-        )   
+        )
         self.cautor.delete(
             0,
             'end'
@@ -213,7 +213,7 @@ class AppBiblioteca():
             padx=5,
             width=12,
             command=comando
-        ) 
+        )
         self.objbutton.grid(
             row=row,
             column=column
