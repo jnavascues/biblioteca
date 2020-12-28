@@ -25,7 +25,7 @@ class AppBiblioteca():
             row=0,
             sticky=W+S+N+E,
             columnspan=10
-            )
+        )
         self.root.grid_columnconfigure(0, pad=50)
         self.agregar_label("Titulo", 1, 0)
         self.agregar_label("Autor", 3, 0)
@@ -54,7 +54,8 @@ class AppBiblioteca():
                 index='end',
                 iid=libro[0],
                 text=" ",
-                values=(libro[0], libro[1], libro[2], libro[3]))
+                values=(libro[0], libro[1], libro[2], libro[3])
+            )
 
     def dar_alta(self,):
         """
@@ -87,13 +88,16 @@ class AppBiblioteca():
         """
         self.ctitulo.delete(
             0,
-            'end')
+            'end'
+        )   
         self.cautor.delete(
             0,
-            'end')
+            'end'
+        )
         self.cgenero.delete(
             0,
-            'end')
+            'end'
+        )
 
     def dar_baja(self,):
         """
@@ -136,15 +140,23 @@ class AppBiblioteca():
                       fila,
                       columna):
         """
-        Metodo para agregar Inputs en el formulario
+        Metodo para agregar Inputs en el formulario.
+        Argumentos:
+        valor: Texto por defecto del campo entry. Puede ser nulo.
+        ancho: tamaño en pixeles del campo entry.
+        fila: ubicación del campo en la grilla.
+        columna: ubicación del campo en la grilla.
+
         """
         self.objentry = Entry(
             self.root,
-            width=ancho)
+            width=ancho
+        )
         self.objentry.grid(
             row=fila,
             column=columna,
-            columnspan=2)
+            columnspan=2
+        )
         self.objentry.insert(0, valor)
         return self.objentry
 
@@ -153,14 +165,20 @@ class AppBiblioteca():
                       fila,
                       columna):
         """
-        Metodo para agregar Labels en el formulario
+        Metodo para agregar Labels en el formulario.
+        Argumentos:
+        valor: Texto para el label.
+        fila: ubicación del label en la grilla.
+        columna: ubicación del label en la grilla.
+
         """
         Label(self.root, text=valor).grid(
             row=fila,
             column=columna,
             sticky=W,
             padx=50,
-            columnspan=2)
+            columnspan=2
+        )
 
     def agregar_boton(self,
                       row,
@@ -169,6 +187,12 @@ class AppBiblioteca():
                       comando):
         """
         Metodo para agregar Botones en el formulario con Funciones dinamicas
+        Argumentos:
+        row: ubicación del botón en la grilla.
+        column: ubicación del botón en la grilla.
+        text: Texto por defecto del boton.
+        comando: Función ligada al botón
+
         """
         self.objbutton = Button(
             self.root,
@@ -176,88 +200,90 @@ class AppBiblioteca():
             padx=5,
             width=12,
             command=comando
-            ) 
+        ) 
         self.objbutton.grid(
             row=row,
             column=column
-            )
+        )
         return self.objbutton
 
     def agregar_treeview(self,
                          parent):
         """
         Metodo para agregar Treeview y cargarlo con sqlite
+        Argumento:
+        Parent: Objeto de TK
         """
-        self.my_tree = ttk.Treeview(parent)
+        self.my_tree = ttk.Treeview(parent, selectmode='browse')
         self.my_tree.grid(
             row=1,
             column=4,
             rowspan=10,
             pady=20,
             padx=20
-            )
+        )
         self.my_tree['columns'] = (
             'ID',
             'Titulo',
             'Autor',
             'Genero'
-            )
+        )
         # CreandoColumnas
         self.my_tree.column(
             '#0',
             width=0,
             minwidth=1
-            )
+        )
         self.my_tree.column(
             'ID',
             anchor=W,
             width=20
-            )
+        )
         self.my_tree.column(
             'Titulo',
             anchor=W,
             width=200
-            )
+        )
         self.my_tree.column(
             'Autor',
             anchor=W,
             width=120
-            )
+        )
         self.my_tree.column(
             'Genero',
             anchor=W,
             width=120
-            )
+        )
         # Creado Headings
         self.my_tree.heading(
             '#0',
             text=' ',
             anchor=W
-            )
+        )
         self.my_tree.heading(
             'ID',
             text='ID',
             anchor=W
-            )
+        )
         self.my_tree.heading(
             'Titulo',
             text='Tirulo',
             anchor=W
-            )
+        )
         self.my_tree.heading(
             'Autor',
             text='Autor',
             anchor=W
-            )
+        )
         self.my_tree.heading(
             'Genero',
             text='Genero',
             anchor=W
-            )
+        )
         self.my_tree.bind(
             '<ButtonRelease-1>',
             self.cargar_item
-            )
+        )
         self.refrescar_lista()
         self.my_tree.pack
 
