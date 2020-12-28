@@ -16,7 +16,12 @@ class Abmc:
         """
         Metodo para la conexion a la base SQLITE3
         """
-        conexion = sqlite3.connect("biblioteca.db")
+        try:
+            conexion = sqlite3.connect("biblioteca.db")
+        except:
+            print("Consola: Error al conectar con la DB. ",
+                  exc_info()[0], exc_info()[1])
+            return "ERROR"
         return conexion
 
     def creardb(self,
