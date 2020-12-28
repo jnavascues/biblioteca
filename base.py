@@ -40,6 +40,11 @@ class Abmc:
             genero):
         """
         Metodo para Altas de nuevos libros con validaciones
+        Argumentos:
+        titulo: se espera el nombre del libro a ingresar.
+        autor: se espera el autor del libro a ingresar.
+        genero: se espera el genero del libro a ingresar.
+        
         """
         try:
             self.conexion = sqlite3.connect("biblioteca.db")
@@ -90,6 +95,11 @@ class Abmc:
                   genero):
         """
         Metodo para modificar un libro existente
+        Argumentos:
+        titulo: se espera el nombre del libro a ingresar.
+        autor: se espera el autor del libro a ingresar.
+        genero: se espera el genero del libro a ingresar.
+
         """
         try:
             self.conexion = sqlite3.connect('biblioteca.db')
