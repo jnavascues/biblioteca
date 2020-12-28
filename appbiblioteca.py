@@ -65,22 +65,8 @@ class AppBiblioteca():
         """
         Metodo para el boton de alta de tkinter
         """
-        if not self.obj_validar.validar_titulo(self.ctitulo.get()):
-            showerror("Error Titulo", "Error en la validacion. \
-                    \nEn el campo titulo estan permitidos letras, numeros, \
-                    espacios, dos puntos y guiones medios y bajos.\
-                    \nNo se permiten otros caracteres especiales. ")
-            return "Titulo no valido"
-        if not self.obj_validar.validar_autor(self.cautor.get()):
-            showerror("Error Autor", "Error en la validacion. \
-                    \nEn el campo Autor se permiten letras y espacios. \
-                    \nNo se permiten caracteres especiales.")
-            return "Autor no valido"
-        if not self.obj_validar.validar_genero(self.cgenero.get()):
-            showerror("Error Genero", "Error en la validacion. \
-                    \nEn el campo Genero se permiten letras y espacios. \
-                    \nNo se permiten caracteres especiales.")
-            return "genero no valido"
+        if not self.verificador():
+            return
         resultado = self.base_de_datos.alta(
             self.ctitulo.get(), self.cautor.get(), self.cgenero.get())
         if resultado == 'ERROR':
@@ -124,21 +110,8 @@ class AppBiblioteca():
         """
         Metodo del boton tkinter para Modificar libros
         """
-        if not self.obj_validar.validar_titulo(self.ctitulo.get()):
-            showerror("Error Titulo", "Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ")
-            return "Titulo no valido"
-        if not self.obj_validar.validar_autor(self.cautor.get()):
-            showerror("Error Autor", "Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ")
-            return "Autor no valido"
-        if not self.obj_validar.validar_genero(self.cgenero.get()):
-            showerror("Error Genero", "Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ")
-            return "genero no valido"
+        if not self.verificador():
+            return
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
         resultado = self.base_de_datos.modificar(
@@ -149,6 +122,27 @@ class AppBiblioteca():
                     \nPor favor verificar logs de consola.")
         self.refrescar_lista()
         self.limpiar()
+
+    def verificador(self,):
+        """
+        Metodo Para verificar los campos usando la clase Validacion
+        """
+        if not self.obj_validar.validar_titulo(self.ctitulo.get()):
+            showerror("Error Titulo", "Error en la validacion. \
+                    \nEn el campo titulo estan permitidos letras, numeros, \
+                    espacios, dos puntos y guiones medios y bajos.\
+                    \nNo se permiten otros caracteres especiales. ")
+            return False
+        if not self.obj_validar.validar_autor(self.cautor.get()):
+            showerror("Error Autor", "Error en la validacion. \
+                    \nEn el campo Autor se permiten letras y espacios. \
+                    \nNo se permiten caracteres especiales.")
+            return False
+        if not self.obj_validar.validar_genero(self.cgenero.get()):
+            showerror("Error Genero", "Error en la validacion. \
+                    \nEn el campo Genero se permiten letras y espacios. \
+                    \nNo se permiten caracteres especiales.")
+            return False
 
     def agregar_input(self,
                       valor,
