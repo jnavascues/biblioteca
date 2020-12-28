@@ -5,6 +5,9 @@ from tkinter.messagebox import showerror
 from base import abmc
 
 class AppBiblioteca():
+    """
+    Clase controladora que se encarga de graficar con Tkinter la app
+    """
     def __init__(self,):
         self.base_de_datos = abmc()
         self.base_de_datos.creardb
@@ -32,6 +35,9 @@ class AppBiblioteca():
 
 
     def refrescar_lista(self,):
+        """
+        Metodo para recargar los libros de la base de datos en treeview
+        """
         for i in self.my_tree.get_children(): 
             self.my_tree.delete(i) 
         biblioteca = self.base_de_datos.cargarlista()  
@@ -45,6 +51,9 @@ class AppBiblioteca():
 
 
     def dar_alta(self,):
+        """
+        Metodo para el boton de alta de tkinter
+        """
        # if validartitulo(self.ctitulo.get()):   
         if 1 == 1:
             self.base_de_datos.alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
@@ -57,6 +66,9 @@ class AppBiblioteca():
 
 
     def limpiar(self,):
+        """
+        Metodo de limpieza de Campos en el formulario
+        """
         self.ctitulo.delete(
             0, 
             'end')
@@ -69,6 +81,9 @@ class AppBiblioteca():
 
 
     def dar_baja(self,):
+        """
+        Metodo del boton tkinter para Bajas
+        """
         item = self.my_tree.focus()
         self.base_de_datos.baja(item)
         self.refrescar_lista()
@@ -76,6 +91,9 @@ class AppBiblioteca():
 
 
     def dar_modificar(self,):
+        """
+        Metodo del boton tkinter para Modificar libros
+        """
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
         self.base_de_datos.modificar(datos['values'][0],self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
@@ -88,6 +106,9 @@ class AppBiblioteca():
             ancho,
             fila,
             columna):
+        """
+        Metodo para agregar Inputs en el formulario
+        """
         self.objentry = Entry(
             self.root, 
             width=ancho)
@@ -102,6 +123,9 @@ class AppBiblioteca():
             valor,
             fila,
             columna):
+        """
+        Metodo para agregar Labels en el formulario
+        """
         Label(self.root, text=valor).grid(
             row=fila, 
             column=columna,
@@ -114,6 +138,9 @@ class AppBiblioteca():
         column,
         text,
         comando):
+        """
+        Metodo para agregar Botones en el formulario con Funciones dinamicas
+        """
         self.objbutton = Button(
             self.root, 
             text=text, 
@@ -129,6 +156,9 @@ class AppBiblioteca():
     
     def agregar_treeview(self,
         parent):
+        """
+        Metodo para agregar Treeview y cargarlo con sqlite
+        """
         self.my_tree = ttk.Treeview(parent)
         self.my_tree.grid(
             row=1, 
@@ -147,17 +177,17 @@ class AppBiblioteca():
         self.my_tree.column(
             '#0', 
             width=0, 
-            minwidth=25
+            minwidth=1
             )
         self.my_tree.column(
             'ID', 
             anchor=W, 
-            width=120
+            width=20
             )
         self.my_tree.column(
             'Titulo', 
             anchor=W, 
-            width=120
+            width=200
             )
         self.my_tree.column(
             'Autor', 
@@ -204,6 +234,9 @@ class AppBiblioteca():
 
     def cargar_item(self,
             *args):
+        """
+        Metodo para cargar la seleccion de un Item en Treeview en el formulario 
+        """
         item = self.my_tree.focus()
         datos = self.my_tree.item(item)
         self.ctitulo.delete(0, 'end')
