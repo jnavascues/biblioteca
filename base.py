@@ -9,14 +9,21 @@ class Abmc:
 
     def __init__(self,
                  ):
+        self.conexion = self.conectar()
         self.creardb()
+
+    def conectar(self,):
+        """
+        Metodo para la conexion a la base SQLITE3
+        """
+        conexion = sqlite3.connect("biblioteca.db")
+        return conexion
 
     def creardb(self,
                 ):
         """
         Metodo para crear la base de datos y la tabla
         """
-        self.conexion = sqlite3.connect("biblioteca.db")
         try:
             self.conexion.execute("""create table libros (
                                     id integer primary key autoincrement,
@@ -31,7 +38,6 @@ class Abmc:
         except:
             print("Consola: Error en la creacion de la tabla. ",
                   exc_info()[0], exc_info()[1])
-        self.conexion.close()
 
     def alta(
             self,
@@ -47,11 +53,9 @@ class Abmc:
         
         """
         try:
-            self.conexion = sqlite3.connect("biblioteca.db")
             self.conexion.execute("insert into libros(titulo,autor,genero) \
                             values (?,?,?)", [titulo, autor, genero])
             self.conexion.commit()
-            self.conexion.close()
         except:
             print("Consola: Error al alta de un nuevo Libro. ",
                   exc_info()[0], exc_info()[1])
@@ -64,7 +68,6 @@ class Abmc:
         Si falla la carga se retorna ERROR
         """
         try:
-            self.conexion = sqlite3.connect('biblioteca.db')
             biblioteca = self.conexion.execute('SELECT * FROM libros')
         except:
             print("Consola: Error al abrir la Tabla Libros. ",
@@ -78,10 +81,8 @@ class Abmc:
         Metodo para la baja de un libro
         """
         try:
-            self.conexion = sqlite3.connect('biblioteca.db')
             self.conexion.execute('DELETE FROM libros WHERE id = ?', [id])
             self.conexion.commit()
-            self.conexion.close()
         except:
             print("Consola: Error al borrar un libro. ",
                   exc_info()[0], exc_info()[1])
@@ -102,11 +103,9 @@ class Abmc:
 
         """
         try:
-            self.conexion = sqlite3.connect('biblioteca.db')
             self.conexion.execute('UPDATE libros SET titulo = ?, autor = ? , genero = ? \
                             WHERE id = ?', [titulo, autor, genero, ide])
             self.conexion.commit()
-            self.conexion.close()
         except:
             print("Consola: Error al modificar un registro. ",
                   exc_info()[0], exc_info()[1])

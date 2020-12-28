@@ -143,6 +143,7 @@ class AppBiblioteca():
                     \nEn el campo Genero se permiten letras y espacios. \
                     \nNo se permiten caracteres especiales.")
             return False
+        return True
 
     def agregar_input(self,
                       valor,
