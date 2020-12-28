@@ -10,9 +10,12 @@ class AppBiblioteca():
     Clase controladora que se encarga de graficar con Tkinter la app
     """
     def __init__(self,):
+        # Iniciando Base de datos 
         self.base_de_datos = abmc()
         self.base_de_datos.creardb
+        #Iniciando validador
         self.obj_validar = validacion()
+        #Iniciando Tkinter y graficando
         self.root = Tk()
         self.root.title('Biblioteca')
         self.root.geometry("776x300")
@@ -35,7 +38,6 @@ class AppBiblioteca():
         self.agregar_treeview(self.root)
         mainloop()
 
-
     def refrescar_lista(self,):
         """
         Metodo para recargar los libros de la base de datos en treeview
@@ -51,30 +53,29 @@ class AppBiblioteca():
                 text=" ", 
                 values=(libro[0], libro[1], libro[2], libro[3]))
 
-
     def dar_alta(self,):
         """
         Metodo para el boton de alta de tkinter
         """
         if not self.obj_validar.validar_titulo(self.ctitulo.get()):
-            showerror("Error Titulo","Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ") 
-            return "Titulo no valido"          
+            showerror("Error Titulo","Error en la validacion. \
+                    \nEn el campo titulo estan permitidos letras, numeros, espacios, dos puntos y guiones medios y bajos.\
+                    \nNo se permiten otros caracteres especiales. ") 
+            return "Titulo no valido"    
+                     
         if not self.obj_validar.validar_autor(self.cautor.get()):
-            showerror("Error Autor","Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ") 
+            showerror("Error Autor","Error en la validacion. \
+                    \nEn el campo Autor se permiten letras y espacios. \
+                    \nNo se permiten caracteres especiales.") 
             return "Autor no valido"  
         if not self.obj_validar.validar_genero(self.cgenero.get()):
-            showerror("Error Genero","Se debe iniciar y terminar con letra o palabra. \
-                    \nLas letras o palabras se pueden separar por un espacio, \
-                    un - o un _.  ") 
+            showerror("Error Genero","Error en la validacion. \
+                    \nEn el campo Genero se permiten letras y espacios. \
+                    \nNo se permiten caracteres especiales.") 
             return "genero no valido"     
         self.base_de_datos.alta(self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
         self.refrescar_lista()
         self.limpiar()
-
 
     def limpiar(self,):
         """
@@ -90,7 +91,6 @@ class AppBiblioteca():
             0, 
             'end')
 
-
     def dar_baja(self,):
         """
         Metodo del boton tkinter para Bajas
@@ -99,7 +99,6 @@ class AppBiblioteca():
         self.base_de_datos.baja(item)
         self.refrescar_lista()
         self.limpiar()
-
 
     def dar_modificar(self,):
         """
@@ -124,8 +123,7 @@ class AppBiblioteca():
         datos = self.my_tree.item(item)
         self.base_de_datos.modificar(datos['values'][0],self.ctitulo.get(),self.cautor.get(),self.cgenero.get())
         self.refrescar_lista()
-        self.limpiar()
-    
+        self.limpiar()   
 
     def agregar_input(self,
             valor,

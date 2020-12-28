@@ -3,7 +3,7 @@ import re
 
 class validacion:
     """
-    Clase para validaciones de los campos
+    Clase para validaciones de los campos de entrada
     """
     def __init__(self, ):
         pass
@@ -11,25 +11,29 @@ class validacion:
 
     def validar_titulo(self, titulo):
         """
-        Metodo de validacion de titulo
+        Metodo de validacion de titulo, se permiten letras espacios y numeros. 
+        Guiones medios, bajos y dos puntos tambien estan permitidos
+        No se permiten otros caracteres especiales 
         """
-        patron = re.compile("^[A-Za-z]+(?:[ _-][A-Za-z]+)*$")
+        patron = re.compile("^[A-Za-z0-9:]+(?:[ _-][A-Za-z0-9:]+)*$")
         validacion = re.match(patron, titulo)
         return validacion
 
     def validar_autor(self, autor):
         """
         Metodo de validacion de Autor
+        Solo se permites letras.
         """
-        patron = re.compile("^[A-Za-z]+(?:[ _-][A-Za-z]+)*$")
+        patron = re.compile("^[A-Za-z]+(?:[ ][A-Za-z]+)*$")
         validacion = re.match(patron, autor)
         return validacion
 
     def validar_genero(self, genero):
         """
-        Metodo de validacion de genero  
+        Metodo de validacion de genero
+        Solo se permites letras y espacios en blanco
         """
-        patron = re.compile("^[A-Za-z]+(?:[ _-][A-Za-z]+)*$")
+        patron = re.compile("^[A-Za-z]+(?:[ ][A-Za-z]+)*$")
         validacion = re.match(patron, genero)
         return validacion
 
