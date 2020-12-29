@@ -19,7 +19,7 @@ class AppBiblioteca():
         # Iniciando Tkinter y graficando
         self.root = Tk()
         self.root.title('Biblioteca')
-        self.root.geometry("776x300")
+        self.root.geometry("760x300")
         Label(self.root, text="Biblioteca", bg='green', foreground='white').grid(
             row=0,
             sticky=W+S+N+E,
