@@ -1,4 +1,4 @@
-from tkinter import Label, Button, Entry, Tk, Grid, Pack, mainloop, W, S, E, N
+from tkinter import Label, Button, Entry, Tk, Grid, Pack, mainloop, W, S, E, N, Scrollbar
 import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
 
@@ -80,18 +80,9 @@ class AppBiblioteca():
         """
         Metodo de limpieza de Campos en el formulario
         """
-        self.ctitulo.delete(
-            0,
-            'end'
-        )
-        self.cautor.delete(
-            0,
-            'end'
-        )
-        self.cgenero.delete(
-            0,
-            'end'
-        )
+        self.ctitulo.delete(0, 'end')
+        self.cautor.delete(0, 'end')
+        self.cgenero.delete(0, 'end')
 
     def dar_baja(self,):
         """
@@ -230,6 +221,9 @@ class AppBiblioteca():
             pady=20,
             padx=20
         )
+        vsb = Scrollbar(parent, orient="vertical", command=self.my_tree.yview)
+        vsb.place(relx=0.978, rely=0.150, relheight=0.650, relwidth=0.020)
+        self.my_tree.configure(yscrollcommand=vsb.set)
         self.my_tree['columns'] = (
             'ID',
             'Titulo',
