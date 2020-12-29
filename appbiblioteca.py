@@ -23,7 +23,8 @@ class AppBiblioteca():
         Label(self.root, text="Biblioteca", bg='green', foreground='white').grid(
             row=0,
             sticky=W+S+N+E,
-            columnspan=10
+            columnspan=11
+            
         )
         self.root.grid_columnconfigure(0, pad=50)
         self.agregar_label("Titulo", 1, 0)
